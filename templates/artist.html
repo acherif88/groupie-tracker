@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{{.Artist.Name}} - Groupie Tracker</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <a href="/" class="back-link">&larr; Retour à la liste</a>
+
+    <div class="artist-detail">
+        <img src="{{.Artist.Image}}" alt="{{.Artist.Name}}">
+        <h1>{{.Artist.Name}}</h1>
+        <p>Année de création : {{.Artist.CreationDate}}</p>
+        <p>Premier album : {{.Artist.FirstAlbum}}</p>
+
+        <h2>Membres</h2>
+        <ul>
+            {{range .Artist.Members}}
+                <li>{{.}}</li>
+            {{end}}
+        </ul>
+
+        <h2>Concerts</h2>
+        <ul>
+            {{range $ville, $dates := .Relation.DatesLocations}}
+                <li>
+                    <strong>{{$ville}}</strong>
+                    <ul>
+                        {{range $dates}}
+                            <li>{{.}}</li>
+                        {{end}}
+                    </ul>
+                </li>
+            {{end}}
+        </ul>
+    </div>
+</body>
+</html>

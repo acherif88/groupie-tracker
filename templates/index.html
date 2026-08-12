@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Groupie Tracker</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Liste des artistes</h1>
+
+    <form action="/" method="GET" class="search-form">
+        <input type="text" name="search" placeholder="Rechercher un artiste..." value="{{.Search}}">
+        <button type="submit">Rechercher</button>
+    </form>
+
+    <div class="artist-grid">
+        {{range .Artists}}
+            <a href="/artist?id={{.ID}}" class="artist-card">
+                <img src="{{.Image}}" alt="{{.Name}}">
+                <h2>{{.Name}}</h2>
+                <p>Depuis {{.CreationDate}}</p>
+            </a>
+        {{end}}
+    </div>
+</body>
+</html>
