@@ -21,7 +21,21 @@
             {{end}}
         </ul>
 
-        <h2>Concerts</h2>
+        <h2>Villes visitées</h2>
+        <ul>
+            {{range .Locations.Locations}}
+                <li>{{.}}</li>
+            {{end}}
+        </ul>
+
+        <h2>Dates de concert</h2>
+        <ul>
+            {{range .Dates.Dates}}
+                <li>{{.}}</li>
+            {{end}}
+        </ul>
+
+        <h2>Concerts (villes + dates associées)</h2>
         <ul>
             {{range $ville, $dates := .Relation.DatesLocations}}
                 <li>

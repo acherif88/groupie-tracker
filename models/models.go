@@ -38,6 +38,8 @@ type Relation struct {
 type ArtistDetail struct {
 	Artist  Artist
 	Relation Relation
+	Locations Location
+	Dates	  Date
 }
 
 // HomeData regroupe la liste des artistes et le texte recherché,

@@ -1,6 +1,6 @@
 package handlers
 
-import (
+import ( 
 	"html/template"
 	"net/http"
 	"strconv"
@@ -74,35 +74,34 @@ if err != nil {
     return
 }
 
-	artists, err := api.GetArtists()
+	selectedArtist, err := api.GetArtistByID(id)
+	if err != nil || selectedArtist.Name == "" {
+		renderError(w, http.StatusNotFound, "Artiste introuvable")
+		return
+	}
+		relation, err := api.GetRelation(id)
 	if err != nil {
-		renderError(w, http.StatusInternalServerError, "Erreur lors de la récupération des artistes")
+		renderError(w, http.StatusInternalServerError, "Erreur lors de la récupération de la relation")
 		return
 	}
 
-	var selectedArtist *models.Artist
-	for _, artist := range artists {
-		if artist.ID == id {
-			selectedArtist = &artist
-			break
-		}
+	locations, err := api.GetLocations(id)
+	if err != nil {
+		renderError(w, http.StatusInternalServerError, "Erreur lors de la récupération des lieux")
+		return
 	}
 
-	if selectedArtist == nil {
-    renderError(w, http.StatusNotFound, "Artiste introuvable")
-    return
-}
-	
-
-	relation, err := api.GetRelation(id)
+	dates, err := api.GetDates(id)
 	if err != nil {
-		renderError(w, http.StatusInternalServerError, "Erreur lors de la récupération des artistes")
+		renderError(w, http.StatusInternalServerError, "Erreur lors de la récupération des dates")
 		return
 	}
 
 	detail := models.ArtistDetail{
-		Artist:   *selectedArtist,
-		Relation: *relation,
+		Artist:    *selectedArtist,
+		Relation:  *relation,
+		Locations: *locations,
+		Dates:     *dates,
 	}
 
 	tmpl, err := template.ParseFiles("templates/artist.html")
