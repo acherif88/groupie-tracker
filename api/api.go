@@ -1,18 +1,32 @@
 package api
 
 import (
-	"fmt"
 	"encoding/json"
+	"fmt"
 	"net/http"
+	"os"
+	"strings"
 
 	"groupie-tracker/models"
 )
+
+// defaultBaseURL est l'adresse de l'API Groupie Tracker.
+// Elle peut être remplacée par la variable d'environnement API_URL.
+const defaultBaseURL = "https://groupietrackers.01edu.ai/api"
+
+// baseURL renvoie l'adresse de l'API à utiliser, sans « / » final.
+func baseURL() string {
+	if url := strings.TrimSpace(os.Getenv("API_URL")); url != "" {
+		return strings.TrimRight(url, "/")
+	}
+	return defaultBaseURL
+}
 
 // GetArtists récupère la liste de tous les artistes depuis l'API.
 func GetArtists() ([]models.Artist, error) {
 	var artists []models.Artist
 
-	response, err := http.Get("https://groupietrackers.herokuapp.com/api/artists")
+	response, err := http.Get(baseURL() + "/artists")
 	if err != nil {
 		return nil, err
 	}
@@ -30,7 +44,7 @@ func GetArtists() ([]models.Artist, error) {
 func GetArtistByID(id int) (*models.Artist, error) {
 	var artist models.Artist
 
-	url := fmt.Sprintf("https://groupietrackers.herokuapp.com/api/artists/%d", id)
+	url := fmt.Sprintf("%s/artists/%d", baseURL(), id)
 
 	response, err := http.Get(url)
 	if err != nil {
@@ -50,7 +64,7 @@ func GetArtistByID(id int) (*models.Artist, error) {
 func GetRelation(id int) (*models.Relation, error) {
 	var relation models.Relation
 
-	url := fmt.Sprintf("https://groupietrackers.herokuapp.com/api/relation/%d", id)
+	url := fmt.Sprintf("%s/relation/%d", baseURL(), id)
 
 	response, err := http.Get(url)
 	if err != nil {
@@ -70,7 +84,7 @@ func GetRelation(id int) (*models.Relation, error) {
 func GetLocations(id int) (*models.Location, error) {
 	var location models.Location
 
-	url := fmt.Sprintf("https://groupietrackers.herokuapp.com/api/locations/%d", id)
+	url := fmt.Sprintf("%s/locations/%d", baseURL(), id)
 
 	response, err := http.Get(url)
 	if err != nil {
@@ -90,7 +104,7 @@ func GetLocations(id int) (*models.Location, error) {
 func GetDates(id int) (*models.Date, error) {
 	var date models.Date
 
-	url := fmt.Sprintf("https://groupietrackers.herokuapp.com/api/dates/%d", id)
+	url := fmt.Sprintf("%s/dates/%d", baseURL(), id)
 
 	response, err := http.Get(url)
 	if err != nil {

@@ -11,7 +11,7 @@ Projet réalisé en équipe à **Zone 01 Rouen** (titre Concepteur Développeur 
 
 ## Ma partie : le back-end
 
-- `api/` : une fonction par route de l'API (`artists`, `relation`, `locations`, `dates`), avec décodage JSON vers des structures Go.
+- `api/` : une fonction par route de l'API (`artists`, `relation`, `locations`, `dates`), avec décodage JSON vers des structures Go. L'adresse de l'API est définie à un seul endroit et peut être changée avec `API_URL`.
 - `models/` : les structures de données.
 - `handlers/` : les handlers HTTP. La page artiste assemble les données des 4 routes, et les erreurs sont gérées sans faire planter le serveur.
 - `handlers/handlers_test.go` : test unitaire de la recherche d'artistes.
@@ -29,6 +29,12 @@ go run .
 ```
 
 Puis ouvrir http://localhost:8080
+
+Les données viennent de l'API https://groupietrackers.01edu.ai/api. Pour utiliser une autre adresse :
+
+```bash
+API_URL=https://autre-adresse/api go run .
+```
 
 ## Lancer les tests
 
