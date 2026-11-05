@@ -36,10 +36,10 @@ type Relation struct {
 // ArtistDetail regroupe un artiste et ses informations de concerts,
 // pour les transmettre ensemble à un template HTML.
 type ArtistDetail struct {
-	Artist  Artist
-	Relation Relation
+	Artist    Artist
+	Relation  Relation
 	Locations Location
-	Dates	  Date
+	Dates     Date
 }
 
 // HomeData regroupe la liste des artistes et le texte recherché,

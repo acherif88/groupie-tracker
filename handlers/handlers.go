@@ -1,6 +1,6 @@
 package handlers
 
-import ( 
+import (
 	"html/template"
 	"net/http"
 	"strconv"
@@ -49,7 +49,7 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-filteredArtists := filterArtists(artists, search)
+	filteredArtists := filterArtists(artists, search)
 
 	data := models.HomeData{
 		Artists: filteredArtists,
@@ -67,19 +67,19 @@ filteredArtists := filterArtists(artists, search)
 // ArtistHandler répond aux demandes sur la page de détail d'un artiste ("/artist?id=...").
 func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	idParam := r.URL.Query().Get("id")
-	
-id, err := strconv.Atoi(idParam)
-if err != nil {
-    renderError(w, http.StatusBadRequest, "Identifiant invalide")
-    return
-}
+
+	id, err := strconv.Atoi(idParam)
+	if err != nil {
+		renderError(w, http.StatusBadRequest, "Identifiant invalide")
+		return
+	}
 
 	selectedArtist, err := api.GetArtistByID(id)
 	if err != nil || selectedArtist.Name == "" {
 		renderError(w, http.StatusNotFound, "Artiste introuvable")
 		return
 	}
-		relation, err := api.GetRelation(id)
+	relation, err := api.GetRelation(id)
 	if err != nil {
 		renderError(w, http.StatusInternalServerError, "Erreur lors de la récupération de la relation")
 		return
