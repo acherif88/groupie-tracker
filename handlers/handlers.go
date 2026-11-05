@@ -103,6 +103,8 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 		Locations: *locations,
 		Dates:     *dates,
 	}
+	// Nettoie les données brutes de l'API (« * » devant les dates, lieux au format technique).
+	cleanDetail(&detail)
 
 	tmpl, err := template.ParseFiles("templates/artist.html")
 	if err != nil {

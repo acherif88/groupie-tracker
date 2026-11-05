@@ -58,6 +58,21 @@ a.artist-card {
     border-radius: 6px;
 }
 
+.artist-detail ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px;
+}
+
+.artist-detail ul ul {
+    margin: 4px 0 10px;
+    color: #555;
+}
+
+.artist-detail li {
+    padding: 2px 0;
+}
+
 .error-box {
     background-color: white;
     border-radius: 8px;
